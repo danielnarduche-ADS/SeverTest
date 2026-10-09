@@ -6,7 +6,7 @@ const ajv = new Ajv({allErrors: true});
 addFormats(ajv)
 ajvErrors(ajv)
 
-const validation = ajv.compile({
+const validationLogin = ajv.compile({
     type: 'object',
     required: ['email', 'password'],
     properties: {
@@ -15,21 +15,19 @@ const validation = ajv.compile({
     },
     additionalProperties: false,
     errorMessage: {
-        properties: {
-            email: 'Invalid email',
-            password: 'The passwords must contain no fewer than 8 characters'
-        },
+        _: "email or password wrong AJV",
         required: {
             email: 'Key your email',
             password: 'Key your password'
         }
     }
-})
+});
 
 export function checkLogin(req, res, next) {
-  if (!validation(req.body)) {
-    const msg = validation.errors[0].message;
-    return res.status(400).send(`<p>${msg}</p>`);
+  if (!validationLogin(req.body)) {
+    const msg = validationLogin.errors[0].message;
+    return res.status(400).set({'HX-Retarget': "#ErrorMsg", 'HX-Reswap': "outerHTML"}).send(`<p id='ErrorMsg' class='errorbox'>${msg}</p>`);
   }
+
   next();
 }

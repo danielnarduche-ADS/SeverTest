@@ -74,7 +74,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            margin-top: 10px;
+            margin-top: 32px;
         }
 
         .btn-submit:hover {
@@ -96,4 +96,10 @@
 
         .footer-text a:hover {
             text-decoration: underline;
+        }
+
+        .errorbox {
+            margin-top: -17px;
+            font-size: 15px;
+            color: rgb(197, 104, 104);
         }
