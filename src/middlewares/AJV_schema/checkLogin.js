@@ -11,17 +11,17 @@ const validation = ajv.compile({
     required: ['email', 'password'],
     properties: {
         email: {type: 'string', format: 'email'},
-        password: {type: 'string', format: 'password', pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$"}
+        password: {type: 'string', minLength: 8}
     },
     additionalProperties: false,
     errorMessage: {
         properties: {
             email: 'Invalid email',
-            password: 'The passwords must contain no fewer than 8 characters, and must contain special characters'
+            password: 'The passwords must contain no fewer than 8 characters'
         },
         required: {
             email: 'Key your email',
-            password: 'Key you password'
+            password: 'Key your password'
         }
     }
 })

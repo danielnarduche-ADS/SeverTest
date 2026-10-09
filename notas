@@ -16,3 +16,24 @@
     <label for="email">E-mail</label>
     <input type="email" id="email" name="email" placeholder="seu@email.com" required="">
 </div>
+
+
+const validation = ajv.compile({
+    type: 'object',
+    required: ['email', 'password'],
+    properties: {
+        email: {type: 'string', format: 'email'},
+        password: {type: 'string', format: 'password', pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$"}
+    },
+    additionalProperties: false,
+    errorMessage: {
+        properties: {
+            email: 'Invalid email',
+            password: 'The passwords must contain no fewer than 8 characters, and must contain special characters'
+        },
+        required: {
+            email: 'Key your email',
+            password: 'Key you password'
+        }
+    }
+})
